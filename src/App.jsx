@@ -156,8 +156,6 @@ function App() {
                             </h1>
                           </div>
 
-
-
                           <button onClick={() => openFileModal(data._id)} className='flex items-center gap-1'>
                             <FaHotdog></FaHotdog>
                             {data.file}
