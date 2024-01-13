@@ -36,7 +36,7 @@ function App() {
 
 
   const bringData = () => {
-    fetch('http://localhost:5000/v1/allTask')
+    fetch('https://seo-page-job-task-server.vercel.app/v1/allTask')
       .then(res => res.json())
       .then(data => setCards(data))
   }
@@ -45,11 +45,10 @@ function App() {
 
   useEffect(() => {
     bringData()
-
   }, [])
 
 
-
+  //  Modal Close Function
 
   const ModalClose = () => {
     const modal = document.getElementById('addFile');
@@ -60,15 +59,12 @@ function App() {
 
 
 
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const form = e.target;
 
-    fetch(`http://localhost:5000/v1/addFileTasks/${fileId}`, {
+    fetch(`https://seo-page-job-task-server.vercel.app/v1/addFileTasks/${fileId}`, {
       method: "PUT",
       headers: {
         'content-type': 'application/json'
@@ -80,7 +76,7 @@ function App() {
         console.log('Data Updated', data);
         if (data) {
           console.log(data);
-          toast.success('Your Application Submited Successfully')
+          toast.success('Your Attachments  File Submited Successfully')
           bringData()
           form.reset()
           ModalClose()
@@ -90,15 +86,14 @@ function App() {
   }
 
 
+  // modal open function 
 
   const openFileModal = (id) => {
-
     setFileId(id);
 
     document.getElementById('addFile').showModal()
 
   }
-
 
   return (
     <>
@@ -185,67 +180,6 @@ function App() {
               </div>
             </div>)
           }
-
-
-          {/* <div className=" rounded-xl w-[380px]  bg-base-200">
-            <div className='w-full py-4 text-center bg-base-200 rounded-t-xl flex justify-between items-center px-10  '>
-              <h2 className='flex items-center gap-3 font-bold justify-center border-l-[20px] rounded-full pl-2 border-blue-600 '>To-Do </h2>
-              <button className='btn'>0</button>
-            </div>
-            <div className=' h-[100vh]  w-[380px] p-4 border-2 border-[#5ECFFF] rounded-b-xl overflow-y-auto scrollbar-to-do space-y-4'>
-              {
-                cards.map((card, i) => <div key={i} className=' bg-white py-24 '>
-
-                </div>)
-              }
-
-
-            </div>
-          </div>
-          <div className=" rounded-xl  w-[380px]  bg-base-200">
-            <div className=' w-full py-4 text-center bg-base-200 rounded-t-xl flex justify-between items-center px-10  '>
-              <h2 className='flex items-center gap-3 font-bold justify-center border-l-[20px] rounded-full pl-2 border-green-600 '>Completed </h2>
-              <button className='btn'>0</button>
-            </div>
-            <div className='h-[100vh]  w-[380px]  p-4 border-2 border-[#E328AF] rounded-b-xl  overflow-y-auto scrollbar-to-do space-y-4'>
-
-            </div>
-          </div>
-          <div className=" rounded-xl  w-[380px]  bg-base-200">
-            <div className=' w-full py-4 text-center bg-base-200 rounded-t-xl flex justify-between items-center px-10  '>
-              <h2 className='flex items-center gap-3 font-bold justify-center border-l-[20px] rounded-full pl-2 border-green-600 '> Doing </h2>
-              <button className='btn'>0</button>
-            </div>
-            <div className='h-[100vh] w-[380px]  p-4 border-2 border-[#E328AF] rounded-b-xl  overflow-y-auto scrollbar-to-do space-y-4'>
-
-            </div>
-          </div>
-          <div className=" rounded-xl  w-[380px]  bg-base-200">
-            <div className='w-full py-4 text-center bg-base-200 rounded-t-xl flex justify-between items-center px-10  '>
-              <h2 className='flex items-center gap-3 font-bold justify-center border-l-[20px] rounded-full pl-2 border-green-600 '> Under-Rivew </h2>
-              <button className='btn'>0</button>
-            </div>
-            <div className=' h-[100vh] w-[380px] p-4 border-2 border-[#E328AF] rounded-b-xl  overflow-y-auto scrollbar-to-do space-y-4'>
-
-            </div>
-          </div>
-          <div className=" rounded-xl  w-[380px]  bg-base-200">
-            <div className='w-full py-4 text-center bg-base-200 rounded-t-xl flex justify-between items-center px-10  '>
-              <h2 className='flex items-center gap-3 font-bold justify-center border-l-[20px] rounded-full pl-2 border-green-600 '> Overdate </h2>
-              <button className='btn'>0</button>
-            </div>
-            <div className='h-[100vh]  w-[380px] p-4 border-2 border-[#E328AF] rounded-b-xl  overflow-y-auto scrollbar-to-do space-y-4'>
-
-            </div>
-          </div>  */}
-
-
-
-
-
-
-
-
 
           <dialog id="addFile" className="modal modal-bottom sm:modal-middle bg-opacity-100 backdrop-blur-lg">
             <div className="modal-box  bg-white bg-opacity-90 backdrop-blur-lg">
