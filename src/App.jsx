@@ -8,9 +8,9 @@ import { FaHotdog } from "react-icons/fa6";
 import { BsCalendarDate } from "react-icons/bs";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 function App() {
-
-
   const [fileId, setFileId] = useState("")
 
   const categorys = [
@@ -59,17 +59,30 @@ function App() {
 
 
 
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    setSelectedFiles(files);
+  };
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const form = e.target;
 
-    fetch(`https://seo-page-job-task-server.vercel.app/v1/addFileTasks/${fileId}`, {
+    console.log(form.files);
+
+
+    fetch(`https://seo-page-job-task-server.vercel.app/v1/addFileTasks?id=${fileId}&file=${parseInt(selectedFiles.length)}`, {
       method: "PUT",
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify({ $inc: { file: 1 } })
+      // body: JSON.stringify({ $inc: { file: 1 } })
+      body: JSON.stringify({file: selectedFiles.length })
     })
       .then(res => res.json())
       .then(data => {
@@ -159,6 +172,7 @@ function App() {
                           <button onClick={() => openFileModal(data._id)} className='flex items-center gap-1'>
                             <FaHotdog></FaHotdog>
                             {data.file}
+
                           </button>
 
 
@@ -196,19 +210,31 @@ function App() {
                         <label className="label">
                           <span className="text-lg text-black  duration-300 font-semibold">  </span>
                         </label>
+
+
                         <input
+                          type="file"
+                          name="file"
+                          multiple
+                          className="input input-bordered  w-full mb-3 bg-white duration-300"
+                          onChange={handleFileChange}
+                        />
+
+
+                        {/* <input
 
                           type="file"
                           name="file"
+                          multiple
                           className="input input-bordered  w-full mb-3 bg-white duration-300"
-                        />
+                        /> */}
 
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between">
                       <button type="submit" className="py-3 px-7 lg:py-4 lg:px-9 text-sm md:text-base lg:text-lg bg-gradient-to-l from-[#924AEF] to-[#A827E4] font-bold rounded-md hover:bg-white hover:scale-90 duration-300 text-white">
-                        Add Attachments File
+                        Add {selectedFiles.length} File
                       </button>
                       <button
                         type="button"
